@@ -5,6 +5,19 @@ public class Produto {
     private String unidade;
 
     public Produto(String codigoItem, String descricao, double valorVenda, String unidade){
+        if (codigoItem.isEmpty()){
+            throw new IllegalArgumentException("O campo Código do item não pode ser vazio");
+        }
+        if (descricao.isEmpty()){
+            throw new IllegalArgumentException("O campo Descrição não pode ser vazio");
+        }
+        if (valorVenda <= 0.0){
+            throw new IllegalArgumentException("O valor de venda deve ser maior que zero");
+        }
+        if (unidade.isEmpty()){
+            throw new IllegalArgumentException("O campo unidade não pode ser vazio");
+        }   
+        
         this.codigoItem = codigoItem;
         this.descricao  = descricao;
         this.valorVenda = valorVenda;

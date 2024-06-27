@@ -25,11 +25,11 @@ public class ProdutoTest {
     @Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-            {"0000", "Arroz", 25.0, "kg"},
-            {"", "Feijao", 500.0, "kg"},
-            {"0001", "", 2.0, "kg"},
-            {"0002", "Alcatra", 0.0, "peca"},
-            {"0003", "Mamao", 9.5, ""}
+            {"0000", "Arroz", 8.5, "kg"},
+            {"0001", "Feijao", 5.0, "kg"},
+            {"0002", "Mandioca", 2.0, "kg"},
+            {"0003", "Alcatra", 25.0, "peca"},
+            {"0004", "Mamao", 9.5, "unidade"}
         });
     }
 
