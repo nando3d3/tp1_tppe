@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: VendaTest
+-------------------------------------------------------------------------------
+Tests run: 12, Failures: 3, Errors: 3, Skipped: 0, Time elapsed: 0.052 s <<< FAILURE! - in VendaTest
+testCadastroVenda[0](VendaTest)  Time elapsed: 0.003 s  <<< FAILURE!
+java.lang.AssertionError: expected:<2024-03-25> but was:<null>
+	at VendaTest.testCadastroVenda(VendaTest.java:54)
+
+testCalculaFrete[0](VendaTest)  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.NullPointerException
+	at VendaTest.testCalculaFrete(VendaTest.java:129)
+
+testCadastroVenda[1](VendaTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<2024-02-26> but was:<null>
+	at VendaTest.testCadastroVenda(VendaTest.java:54)
+
+testCalculaFrete[1](VendaTest)  Time elapsed: 0 s  <<< ERROR!
+java.lang.NullPointerException
+	at VendaTest.testCalculaFrete(VendaTest.java:129)
+
+testCadastroVenda[2](VendaTest)  Time elapsed: 0.002 s  <<< FAILURE!
+java.lang.AssertionError: expected:<2024-06-09> but was:<null>
+	at VendaTest.testCadastroVenda(VendaTest.java:54)
+
+testCalculaFrete[2](VendaTest)  Time elapsed: 0.002 s  <<< ERROR!
+java.lang.NullPointerException
+	at VendaTest.testCalculaFrete(VendaTest.java:129)
+
