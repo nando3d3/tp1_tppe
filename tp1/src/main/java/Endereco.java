@@ -3,10 +3,26 @@ public class Endereco {
     private String siglaRegiao;
     private boolean isCapital;
 
-    public Endereco(String siglaEstado, String siglaRegiao, boolean isCapital){
+    public Endereco(String siglaEstado, boolean isCapital){
         this.siglaEstado = siglaEstado;
-        this.siglaRegiao = siglaRegiao;
+        this.siglaRegiao = definirRegiao(this.siglaEstado);
         this.isCapital = isCapital;
+    }
+
+    private String definirRegiao(String estado) {
+        switch (estado) {
+            case "AC": case "AM": case "AP": case "PA": case "RO": case "RR": case "TO":
+                return "NO";
+            case "AL": case "BA": case "CE": case "MA": case "PB": case "PE": case "PI": case "RN": case "SE":
+                return "NE";
+            case "DF": case "GO": case "MT": case "MS":
+                return "CO";
+            case "ES": case "MG": case "RJ": case "SP":
+                return "SE";
+            case "PR": case "RS": case "SC":
+                return "SU";
+            default: return "";
+        }
     }
 
     public String getSiglaEstado() {
@@ -19,10 +35,6 @@ public class Endereco {
 
     public String getSiglaRegiao() {
         return siglaRegiao;
-    }
-
-    public void setSiglaRegiao(String siglaRegiao) {
-        this.siglaRegiao = siglaRegiao;
     }
 
     public boolean isCapital() {

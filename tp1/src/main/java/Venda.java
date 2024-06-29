@@ -17,12 +17,18 @@ public class Venda {
     }
 
     public void addItem(Produto produto, int quantidade){
-        if(quantidade > 0){
+        if(quantidade > 0){    
+            for (ItemVenda item: itens){
+                if(item.getProduto().equals(produto)){
+                    item.setQuantidade(item.getQuantidade() + quantidade);
+                    return;
+                }
+            }
             this.itens.add(new ItemVenda(produto, quantidade));
-        }
+        } 
     }
 
-    public double calculaTotal(){
+    public double calculaTotalPedido(){
         double valorTotal = 0.0;
 
         for(ItemVenda item : itens){
@@ -51,6 +57,65 @@ public class Venda {
         }
 
         return valorFrete;
+    }
+
+    public double calculaImposto(){
+        double taxaICMS;
+        double taxaMunicipal;
+        double totalImposto = 0.00;
+
+        if(cliente.getEndereco().getSiglaEstado().equals("DF")){
+            taxaICMS = 0.18;
+            taxaMunicipal = 0.0;
+        } else{
+            taxaICMS = 0.12;
+            taxaMunicipal = 0.04;
+        }
+
+        for(ItemVenda item : itens){
+            double valorProduto = item.getProduto().getValorVenda();
+            double impostoICMSItem = valorProduto*taxaICMS;
+            double impostoMunicipalItem = valorProduto*taxaMunicipal;
+            
+            item.setValorImpostoICMS(impostoICMSItem);
+            item.setValorImpostoMunicipal(impostoMunicipalItem);
+            
+            double impostoItem = item.getValorImpostoICMS() + item.getValorImpostoMunicipal();
+            
+            totalImposto += impostoItem * item.getQuantidade();
+        }
+
+        return totalImposto;
+    }
+
+    public double calculaTotalNota() {
+        double valorTotalNota;
+        double totalPedido = calculaTotalPedido();
+        double imposto = calculaImposto();
+        double frete = valorFrete();
+        double descontoPagamento = 1.0;
+
+        
+        if (cliente.getTipoCliente().equals("especial")) {
+            totalPedido *= 0.90;
+            if (metodoPagamento.equals("cartao_empresa")) {
+                descontoPagamento = 0.90;
+            }
+            frete = frete * 0.70;
+        } else if (cliente.getTipoCliente().equals("prime")) {
+            if (metodoPagamento.equals("cartao_loja")) {
+                totalPedido*= 0.95;
+            }
+            else{
+                totalPedido *= 0.97;
+            }
+            frete = 0.0;
+        }
+    
+        double valorTotal = totalPedido + imposto + frete;
+        valorTotalNota = valorTotal * descontoPagamento;
+
+        return valorTotalNota;
     }
 
     public List<ItemVenda> getItens() {
