@@ -8,12 +8,15 @@ public class Venda {
     private Cliente cliente;
     private String metodoPagamento;
     private List<ItemVenda> itens;
+    private double total; 
+
     
     public Venda(String data, Cliente cliente, String metodoPagamento){
         this.data = data;
         this.cliente = cliente;
         this.metodoPagamento = metodoPagamento;
         this.itens = new ArrayList<>();
+        this.total = calculaTotalNota();
     }
 
     public void addItem(Produto produto, int quantidade){
@@ -134,5 +137,7 @@ public class Venda {
         return metodoPagamento;
     }
 
-
+    public double getTotal() {
+        return total;
+    }
 }
