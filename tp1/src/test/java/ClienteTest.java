@@ -16,15 +16,17 @@ public class ClienteTest {
     private String nome;
     private Endereco endereco;
     private String tipoCliente;
+    private double cash_back;
 
     private Cliente cliente;
 
-    public ClienteTest(int id, String cpf_cnpj, String nome, Endereco endereco, String tipoCliente) {
+    public ClienteTest(int id, String cpf_cnpj, String nome, Endereco endereco, String tipoCliente, double cash_back) {
         this.id = id;
         this.cpf_cnpj = cpf_cnpj;
         this.nome = nome;
         this.endereco = endereco;
         this.tipoCliente = tipoCliente;
+        this.cash_back = cash_back;
     }
 
     @Before
@@ -39,9 +41,9 @@ public class ClienteTest {
         Endereco end3 = new Endereco("RS", false);
 
         return Arrays.asList(new Object[][]{
-            {1, "12345678900", "John Lennon", end1, "prime"},
-            {2, "12345678911", "Paul McCartney", end2, "especial"},
-            {3, "00987654123", "George Harrison", end3, "padrao"}
+            {1, "12345678900", "John Lennon", end1, "prime", 0.00},
+            {2, "12345678911", "Paul McCartney", end2, "especial", 0.00},
+            {3, "00987654123", "George Harrison", end3, "padrao", 0.00}
         });
     }
 
@@ -53,5 +55,6 @@ public class ClienteTest {
         assertEquals(nome, cliente.getNome());
         assertEquals(endereco, cliente.getEndereco());
         assertEquals(tipoCliente, cliente.getTipoCliente());
+        assertEquals(cash_back, cliente.getCashBack(), 0.001);
     }
 }

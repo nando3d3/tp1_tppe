@@ -8,15 +8,16 @@ public class Venda {
     private Cliente cliente;
     private String metodoPagamento;
     private List<ItemVenda> itens;
-    private double total; 
+    private double total;
+    private boolean usarCashback;
 
     
-    public Venda(String data, Cliente cliente, String metodoPagamento){
+    public Venda(String data, Cliente cliente, String metodoPagamento, boolean usarCashback){
         this.data = data;
         this.cliente = cliente;
         this.metodoPagamento = metodoPagamento;
         this.itens = new ArrayList<>();
-        this.total = calculaTotalNota();
+        this.usarCashback = usarCashback;
     }
 
     public void addItem(Produto produto, int quantidade){
@@ -98,29 +99,39 @@ public class Venda {
         double frete = valorFrete();
         double descontoPagamento = 1.0;
 
-        
-        if (cliente.getTipoCliente().equals("especial")) {
+        if (cliente.getTipoCliente().equals("prime")) {
+            if (metodoPagamento.equals("cartao_loja")) {
+                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.05);
+            } else {
+                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.03);
+            }
+            frete = 0.0;
+        } else if (cliente.getTipoCliente().equals("especial")) {
             totalPedido *= 0.90;
             if (metodoPagamento.equals("cartao_empresa")) {
                 descontoPagamento = 0.90;
             }
             frete = frete * 0.70;
-        } else if (cliente.getTipoCliente().equals("prime")) {
-            if (metodoPagamento.equals("cartao_loja")) {
-                totalPedido*= 0.95;
-            }
-            else{
-                totalPedido *= 0.97;
-            }
-            frete = 0.0;
         }
-    
+
         double valorTotal = totalPedido + imposto + frete;
         valorTotalNota = valorTotal * descontoPagamento;
 
+        if (cliente.getTipoCliente().equals("prime") && usarCashback) {
+            double cashback = cliente.getCashBack();
+            if (cashback > valorTotalNota) {
+                cashback -= valorTotalNota;
+                valorTotalNota = 0.0;
+            } else {
+                valorTotalNota -= cashback;
+                cashback = 0.0;
+            }
+            cliente.setCashBack(cashback);
+        }
+
         return valorTotalNota;
     }
-
+    
     public List<ItemVenda> getItens() {
         return itens;
     }
@@ -139,5 +150,9 @@ public class Venda {
 
     public double getTotal() {
         return total;
+    }
+
+    public boolean isUsarCashBack(){
+        return usarCashback;
     }
 }

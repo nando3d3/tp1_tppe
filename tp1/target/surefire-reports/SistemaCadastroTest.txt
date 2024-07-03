@@ -1,4 +1,28 @@
 -------------------------------------------------------------------------------
 Test set: SistemaCadastroTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s - in SistemaCadastroTest
+Tests run: 9, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.094 s <<< FAILURE! - in SistemaCadastroTest
+testCadastroVenda[0](SistemaCadastroTest)  Time elapsed: 0.015 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroVenda(SistemaCadastroTest.java:119)
+
+testCadastroProduto[0](SistemaCadastroTest)  Time elapsed: 0.008 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroProduto(SistemaCadastroTest.java:93)
+
+testCadastroVenda[1](SistemaCadastroTest)  Time elapsed: 0.007 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroVenda(SistemaCadastroTest.java:119)
+
+testCadastroProduto[1](SistemaCadastroTest)  Time elapsed: 0.005 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroProduto(SistemaCadastroTest.java:93)
+
+testCadastroVenda[2](SistemaCadastroTest)  Time elapsed: 0.006 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroVenda(SistemaCadastroTest.java:119)
+
+testCadastroProduto[2](SistemaCadastroTest)  Time elapsed: 0.006 s  <<< ERROR!
+java.util.InputMismatchException
+	at SistemaCadastroTest.testCadastroProduto(SistemaCadastroTest.java:93)
+
