@@ -4,6 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -15,38 +19,44 @@ public class RelatorioVendaTest {
     private List<Venda> vendas;
 
     private Cliente cliente;
-    private boolean tipoEsperado;
+    private boolean valorEsperado;
 
-    public RelatorioVendaTest(Cliente cliente, List<Venda> vendas, boolean tipoEsperado) {
+    public RelatorioVendaTest(Cliente cliente, List<Venda> vendas, boolean valorEsperado) {
         this.cliente = cliente;
         this.vendas = vendas;
-        this.tipoEsperado = tipoEsperado;
+        this.valorEsperado = valorEsperado;
     }
 
     @Before
     public void setUp() {
         relatorioVenda = new RelatorioVenda(vendas);
-        relatorioVenda.calcularVendasUltimoMes();
+        relatorioVenda.calculaVendasUltimoMes();
     }
 
-    private static List<Venda> criarVendasClienteEspecial(Cliente cliente) {
-        return Arrays.asList(
-            criaVenda("2024-06-01", cliente, "cartao_loja", false, 50.0, 2),
-            criaVenda("2024-06-15", cliente, "cartao_empresa", true, 50.0, 1),
-            criaVenda("2024-06-20", cliente, "cartao_loja", false, 50.0, 1)
-        );
+    private static List<Venda> criaVendasClienteEspecial(Cliente cliente) {
+        List<Venda> vendas = new ArrayList<>();
+
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(5), cliente, "cartao_loja", false, 50.0, 2));
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(10), cliente, "cartao_empresa", false, 20.0, 2));
+
+        return vendas;
     }
 
-    private static List<Venda> criarVendasClienteNaoEspecial(Cliente cliente) {
-        return Arrays.asList(
-            criaVenda("2024-06-01", cliente, "cartao", false, 30.0, 2),
-            criaVenda("2024-06-15", cliente, "pix", false, 20.0, 1),
-            criaVenda("2024-06-20", cliente, "cartao_loja", false, 10.0, 1)
-        );
+    private static List<Venda> criaVendasClienteNaoEspecial(Cliente cliente) {
+        List<Venda> vendas = new ArrayList<>();
+
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(15), cliente, "cartao", false, 30.0, 1));
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(20), cliente, "pix", false, 20.0, 1));
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(25), cliente, "cartao_loja", false, 5.0, 2));
+
+        return vendas;
     }
 
-    private static Venda criaVenda(String data, Cliente cliente, String metodoPagamento, boolean usarCashback, double valorItem, int quantidade) {
-        Venda venda = new Venda(data, cliente, metodoPagamento, usarCashback);
+    private static Venda criaVenda(LocalDate data, Cliente cliente, String metodoPagamento, boolean usarCashback, double valorItem, int quantidade) {
+        DateTimeFormatter formatdo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dataFormatada = data.format(formatdo);
+        
+        Venda venda = new Venda(dataFormatada, cliente, metodoPagamento, usarCashback);
         Produto produto = new Produto("001", "Produto de Teste", valorItem, "unidade");
         venda.addItem(produto, quantidade);
         return venda;
@@ -54,17 +64,19 @@ public class RelatorioVendaTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        Cliente clienteEspecial = new Cliente(1, "831.997.200-05", "Cliente 1", new Endereco("DF", true), "padrao");
-        Cliente clienteNaoEspecial = new Cliente(2, "081.707.980-78", "Cliente 2", new Endereco("SP", true), "padrao");
+        Cliente clienteEspecial = new Cliente(1, "831.997.200-05", "Cliente Especial", new Endereco("DF", true), "padrao");
+        Cliente clienteNaoEspecial = new Cliente(2, "081.707.980-78", "Cliente Nao Especial", new Endereco("SP", true), "padrao");
 
         return Arrays.asList(new Object[][] {
-            { clienteEspecial, criarVendasClienteEspecial(clienteEspecial), true },
-            { clienteNaoEspecial, criarVendasClienteNaoEspecial(clienteNaoEspecial), false }
+            { clienteEspecial, criaVendasClienteEspecial(clienteEspecial), true },
+            { clienteNaoEspecial, criaVendasClienteNaoEspecial(clienteNaoEspecial), false }
         });
     }
 
     @Test
-    public void testVerificarClienteEspecial() {
-        assertEquals(tipoEsperado, relatorioVenda.verificarClienteEspecial(cliente));
+    public void testVerificaClienteEspecial() {
+        assertEquals(valorEsperado, relatorioVenda.verificaClienteEspecial(cliente));
+        Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
+        System.out.println("Cliente: " + cliente.getNome() + " - Total de Vendas: " + totalVendasCliente);
     }
 }
