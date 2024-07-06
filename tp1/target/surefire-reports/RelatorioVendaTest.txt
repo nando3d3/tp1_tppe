@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: RelatorioVendaTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.077 s <<< FAILURE! - in RelatorioVendaTest
+testCalculaVendasUltimoMes[0: Test with vendas=[Venda@21bcffb5, Venda@380fb434, Venda@668bc3d5, Venda@3cda1055, Venda@7a5d012c], expectedVendasClientes={Cliente@6aaa5eb0=150.0, Cliente@1a407d53=100.0, Cliente@3498ed=90.0}, expectedTipoCliente={Cliente@6aaa5eb0=especial, Cliente@1a407d53=prime, Cliente@3498ed=especial}](RelatorioVendaTest)  Time elapsed: 0.008 s  <<< FAILURE!
+java.lang.AssertionError: expected:<150.0> but was:<359.6>
+	at RelatorioVendaTest.testCalculaVendasUltimoMes(RelatorioVendaTest.java:122)
+
+testVerificaTipoCliente[1: Test with vendas=[Venda@62043840, Venda@5315b42e, Venda@2ef9b8bc, Venda@5d624da6, Venda@1e67b872], expectedVendasClientes={Cliente@6aaa5eb0=70.0, Cliente@1a407d53=30.0, Cliente@3498ed=80.0}, expectedTipoCliente={Cliente@6aaa5eb0=padrao, Cliente@1a407d53=prime, Cliente@3498ed=padrao}](RelatorioVendaTest)  Time elapsed: 0.002 s  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<[padrao]> but was:<[especial]>
+	at RelatorioVendaTest.testVerificaTipoCliente(RelatorioVendaTest.java:134)
+
+testCalculaVendasUltimoMes[1: Test with vendas=[Venda@62043840, Venda@5315b42e, Venda@2ef9b8bc, Venda@5d624da6, Venda@1e67b872], expectedVendasClientes={Cliente@6aaa5eb0=70.0, Cliente@1a407d53=30.0, Cliente@3498ed=80.0}, expectedTipoCliente={Cliente@6aaa5eb0=padrao, Cliente@1a407d53=prime, Cliente@3498ed=padrao}](RelatorioVendaTest)  Time elapsed: 0.002 s  <<< FAILURE!
+java.lang.AssertionError: expected:<70.0> but was:<50.2>
+	at RelatorioVendaTest.testCalculaVendasUltimoMes(RelatorioVendaTest.java:122)
+

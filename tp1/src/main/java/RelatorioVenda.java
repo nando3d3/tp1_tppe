@@ -13,11 +13,12 @@ public class RelatorioVenda {
     public RelatorioVenda(List<Venda> vendas) {
         this.vendas = vendas;
         this.vendasClientes = new HashMap<>();
+        calculaVendasUltimoMes(); // Calcula as vendas do último mês ao criar o relatório
     }
 
     public void atualizaVendas(List<Venda> vendas) {
         this.vendas = vendas;
-        calculaVendasUltimoMes();
+        calculaVendasUltimoMes(); // Recalcula as vendas do último mês ao atualizar o relatório
     }
 
     public void calculaVendasUltimoMes() {
@@ -41,25 +42,20 @@ public class RelatorioVenda {
             }
         }
 
+        for (Cliente cliente : vendasClientes.keySet()) {
+            if (verificaClienteEspecial(cliente)) {
+                cliente.setTipoCliente("especial");
+            }
+        }
     }
 
     public boolean verificaClienteEspecial(Cliente cliente) {
+        if (cliente.getTipoCliente().equals("prime")) {
+            return false;
+        }
+    
         Double totalVendasCliente = vendasClientes.get(cliente);
-        if (totalVendasCliente != null && totalVendasCliente >= 100) {
-            return true;
-        }
-        return false;
-    }
-
-    public void imprimeClientesEspeciais() {
-        for (Map.Entry<Cliente, Double> cliente : vendasClientes.entrySet()) {
-            if (cliente.getValue() >= 100) {
-                Cliente especial = cliente.getKey();
-                System.out.println("O cliente de nome " + especial.getNome() + 
-                    " e cpf/cnpj de numero " + especial.getCpfCnpj() + 
-                    "esta elegivel a ser especial.");
-            }
-        }
+        return totalVendasCliente != null && totalVendasCliente >= 100;
     }
 
     public List<Venda> getVendas() {
@@ -69,5 +65,4 @@ public class RelatorioVenda {
     public Map<Cliente, Double> getVendasClientes() {
         return vendasClientes;
     }
-    
 }
