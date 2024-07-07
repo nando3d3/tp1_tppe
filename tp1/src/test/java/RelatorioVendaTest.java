@@ -53,6 +53,14 @@ public class RelatorioVendaTest {
         return vendas;
     }
 
+    private static List<Venda> criaVendasClientePrime(Cliente cliente) {
+        List<Venda> vendas = new ArrayList<>();
+
+        vendas.add(criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(20), cliente, "cartao_loja", false, 40.0, 2));
+
+        return vendas;
+    }
+
     private static Venda criaVenda(LocalDate data, Cliente cliente, String metodoPagamento, boolean usarCashback, double valorItem, int quantidade) {
         DateTimeFormatter formatdo = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String dataFormatada = data.format(formatdo);
@@ -67,10 +75,13 @@ public class RelatorioVendaTest {
     public static Collection<Object[]> data() {
         Cliente clienteEspecial = new Cliente(1, "831.997.200-05", "Cliente Especial", new Endereco("DF", true), "padrao");
         Cliente clienteNaoEspecial = new Cliente(2, "081.707.980-78", "Cliente Nao Especial", new Endereco("SP", true), "padrao");
+        Cliente clientePrime = new Cliente(3, "586.148.250-05", "Cliente Prime", new Endereco("GO", true), "prime");
+
 
         return Arrays.asList(new Object[][] {
             { clienteEspecial, criaVendasClienteEspecial(clienteEspecial), true },
-            { clienteNaoEspecial, criaVendasClienteNaoEspecial(clienteNaoEspecial), false }
+            { clienteNaoEspecial, criaVendasClienteNaoEspecial(clienteNaoEspecial), false },
+            { clientePrime, criaVendasClientePrime(clientePrime), false }
         });
     }
 
@@ -78,6 +89,6 @@ public class RelatorioVendaTest {
     public void testVerificaClienteEspecial() {
         assertEquals(valorEsperado, relatorioVenda.verificaClienteEspecial(cliente));
         Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
-        System.out.println("Cliente: " + cliente.getNome() + " - Total de Vendas: " + totalVendasCliente);
+        System.out.println("Cliente: " + cliente.getNome() + " - Total de Vendas: " + totalVendasCliente + " - Tipo: " + cliente.getTipoCliente());
     }
 }

@@ -41,7 +41,9 @@ public class RelatorioVenda {
                     Cliente cliente = venda.getCliente();
                     double totalVenda = venda.calculaTotalNota();
                     vendasClientes.put(cliente, vendasClientes.getOrDefault(cliente, 0.0) + totalVenda);
-                    cliente.setTipoCliente("especial");
+                    if (totalVenda >= 100 && !cliente.getTipoCliente().equals("prime") ) {
+                        cliente.setTipoCliente("especial");
+                    }
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -52,6 +54,8 @@ public class RelatorioVenda {
     }
 
     public boolean verificaClienteEspecial(Cliente cliente) {
+        if (cliente.getTipoCliente() == "prime") return false;
+        
         Double totalVendasCliente = vendasClientes.get(cliente);
         return totalVendasCliente != null && totalVendasCliente >= 100;
     }
