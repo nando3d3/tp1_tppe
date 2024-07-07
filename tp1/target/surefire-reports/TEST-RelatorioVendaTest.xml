@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RelatorioVendaTest" time="0.077" tests="4" errors="0" skipped="0" failures="3">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="RelatorioVendaTest" time="0.116" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="gnome"/>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value=""/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
-    <property name="java.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/test-classes:/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/classes:/home/sidney/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/sidney/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/test-classes:/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/classes:/home/sidney/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/sidney/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="java.vm.vendor" value="Ubuntu"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.vendor.url" value="https://ubuntu.com/"/>
@@ -16,10 +16,10 @@
     <property name="user.country" value="BR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-11-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/surefire/surefirebooter12817271737410013102.jar /home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/surefire 2024-07-06T18-55-15_197-jvmRun1 surefire2370954204228694450tmp surefire_06815389098352627938tmp"/>
+    <property name="sun.java.command" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/surefire/surefirebooter16662170621394665314.jar /home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/surefire 2024-07-07T20-05-12_350-jvmRun1 surefire13289680886683864104tmp surefire_05849746617403530766tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="RelatorioVendaTest"/>
-    <property name="surefire.test.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/test-classes:/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/classes:/home/sidney/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/sidney/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="surefire.test.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/test-classes:/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/classes:/home/sidney/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/sidney/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/sidney"/>
     <property name="user.language" value="pt"/>
@@ -27,13 +27,13 @@
     <property name="java.version.date" value="2024-04-16"/>
     <property name="java.home" value="/usr/lib/jvm/java-11-openjdk-amd64"/>
     <property name="file.separator" value="/"/>
-    <property name="basedir" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1"/>
+    <property name="basedir" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1/target/surefire/surefirebooter12817271737410013102.jar"/>
+    <property name="surefire.real.class.path" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1/target/surefire/surefirebooter16662170621394665314.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.23+9-post-Ubuntu-1ubuntu122.04.1"/>
     <property name="user.name" value="sidney"/>
@@ -47,7 +47,7 @@
     <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-lts"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="java.version" value="11.0.23"/>
-    <property name="user.dir" value="/home/sidney/Documentos/UnB/11 Semestre/TPPE/tp1_tppe/tp1"/>
+    <property name="user.dir" value="/home/sidney/Documentos/UnB/11 Semestre/tp1_tppe/tp1"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
@@ -60,20 +60,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testVerificaTipoCliente[0: Test with vendas=[Venda@21bcffb5, Venda@380fb434, Venda@668bc3d5, Venda@3cda1055, Venda@7a5d012c], expectedVendasClientes={Cliente@6aaa5eb0=150.0, Cliente@1a407d53=100.0, Cliente@3498ed=90.0}, expectedTipoCliente={Cliente@6aaa5eb0=especial, Cliente@1a407d53=prime, Cliente@3498ed=especial}]" classname="RelatorioVendaTest" time="0.003"/>
-  <testcase name="testCalculaVendasUltimoMes[0: Test with vendas=[Venda@21bcffb5, Venda@380fb434, Venda@668bc3d5, Venda@3cda1055, Venda@7a5d012c], expectedVendasClientes={Cliente@6aaa5eb0=150.0, Cliente@1a407d53=100.0, Cliente@3498ed=90.0}, expectedTipoCliente={Cliente@6aaa5eb0=especial, Cliente@1a407d53=prime, Cliente@3498ed=especial}]" classname="RelatorioVendaTest" time="0.008">
-    <failure message="expected:&lt;150.0&gt; but was:&lt;359.6&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<150.0> but was:<359.6>
-	at RelatorioVendaTest.testCalculaVendasUltimoMes(RelatorioVendaTest.java:122)
-]]></failure>
-  </testcase>
-  <testcase name="testVerificaTipoCliente[1: Test with vendas=[Venda@62043840, Venda@5315b42e, Venda@2ef9b8bc, Venda@5d624da6, Venda@1e67b872], expectedVendasClientes={Cliente@6aaa5eb0=70.0, Cliente@1a407d53=30.0, Cliente@3498ed=80.0}, expectedTipoCliente={Cliente@6aaa5eb0=padrao, Cliente@1a407d53=prime, Cliente@3498ed=padrao}]" classname="RelatorioVendaTest" time="0.002">
-    <failure message="expected:&lt;[padrao]&gt; but was:&lt;[especial]&gt;" type="org.junit.ComparisonFailure"><![CDATA[org.junit.ComparisonFailure: expected:<[padrao]> but was:<[especial]>
-	at RelatorioVendaTest.testVerificaTipoCliente(RelatorioVendaTest.java:134)
-]]></failure>
-  </testcase>
-  <testcase name="testCalculaVendasUltimoMes[1: Test with vendas=[Venda@62043840, Venda@5315b42e, Venda@2ef9b8bc, Venda@5d624da6, Venda@1e67b872], expectedVendasClientes={Cliente@6aaa5eb0=70.0, Cliente@1a407d53=30.0, Cliente@3498ed=80.0}, expectedTipoCliente={Cliente@6aaa5eb0=padrao, Cliente@1a407d53=prime, Cliente@3498ed=padrao}]" classname="RelatorioVendaTest" time="0.002">
-    <failure message="expected:&lt;70.0&gt; but was:&lt;50.2&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<70.0> but was:<50.2>
-	at RelatorioVendaTest.testCalculaVendasUltimoMes(RelatorioVendaTest.java:122)
-]]></failure>
-  </testcase>
+  <testcase name="testCalculaVendasUltimoMes[0]" classname="RelatorioVendaTest" time="0.034"/>
+  <testcase name="testVerificaClienteEspecial[0]" classname="RelatorioVendaTest" time="0.002"/>
+  <testcase name="testCalculaVendasUltimoMes[1]" classname="RelatorioVendaTest" time="0.002"/>
+  <testcase name="testVerificaClienteEspecial[1]" classname="RelatorioVendaTest" time="0.002"/>
+  <testcase name="testCalculaVendasUltimoMes[2]" classname="RelatorioVendaTest" time="0.001"/>
+  <testcase name="testVerificaClienteEspecial[2]" classname="RelatorioVendaTest" time="0.002"/>
 </testsuite>

@@ -18,5 +18,11 @@ O Sistema de Gestão de Vendas é uma aplicação Java para gerenciar vendas, cl
 - O projeto inclui testes parametrizados para os métodos das classes, garantindo a cobertura de diferentes cenários e condições de entrada.
 
 ## Execução dos testes
+Na pasta tp1, digite no terminal:
 mvn test
+
+ou
+
+para executar suite de testes
+mvn test -Dtest=AllTests
 
