@@ -42,7 +42,7 @@ public class ProdutoTest {
         try {
             Produto produto = new Produto(codigoItem, descricao, valorVenda, unidade);
             if (isExceptionThrowed) {
-                fail("Expected IllegalArgumentException to be thrown");
+                fail("IllegalArgumentException nao lancada.");
             }
             assertEquals(codigoItem, produto.getCodigoItem());
             assertEquals(descricao, produto.getDescricao());
@@ -50,7 +50,7 @@ public class ProdutoTest {
             assertEquals(unidade, produto.getUnidade());
         } catch (IllegalArgumentException e) {
             if (!isExceptionThrowed) {
-                fail("Unexpected IllegalArgumentException was thrown");
+                fail(e.getMessage());
             }
         }
     }
