@@ -16,11 +16,6 @@ public class RelatorioVenda {
         calculaVendasUltimoMes(); // Calcula as vendas do utimo mes ao criar o relatorio
     }
 
-    public void atualizaVendas(List<Venda> vendas) {
-        this.vendas = vendas;
-        calculaVendasUltimoMes(); // Recalcula as vendas do ultimo mes ao atualizar o relatorio
-    }
-
     public void calculaVendasUltimoMes() {
         SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -39,9 +34,9 @@ public class RelatorioVenda {
                 Date dataVenda = formatoData.parse(venda.getData());
                 if (!dataVenda.before(inicioMesAnterior.getTime()) && !dataVenda.after(fimMesAnterior.getTime())) {
                     Cliente cliente = venda.getCliente();
-                    double totalVenda = venda.calculaTotalNota();
+                    double totalVenda = venda.getTotal();
                     vendasClientes.put(cliente, vendasClientes.getOrDefault(cliente, 0.0) + totalVenda);
-                    if (totalVenda >= 100 && !cliente.getTipoCliente().equals("prime") ) {
+                    if (verificaClienteEspecial(cliente)) {
                         cliente.setTipoCliente("especial");
                     }
                 }

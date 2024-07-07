@@ -17,6 +17,7 @@ public class Venda {
         this.cliente = cliente;
         this.metodoPagamento = metodoPagamento;
         this.itens = new ArrayList<>();
+        this.total = 0.0;
         this.usarCashback = usarCashback;
     }
 
@@ -128,8 +129,8 @@ public class Venda {
             }
             cliente.setCashBack(cashback);
         }
-
-        return valorTotalNota;
+        total = valorTotalNota;
+        return total;
     }
     
     public List<ItemVenda> getItens() {
