@@ -16,8 +16,8 @@ public class RelatorioVenda {
         calculaVendasUltimoMes(); // Calcula as vendas do utimo mes ao criar o relatorio
     }
 
-    public void atualizaVendas(List<Venda> vendas) {
-        this.vendas = vendas;
+    public void atualizaVendas(List<Venda> novasVendas) {
+        this.vendas = novasVendas;
         calculaVendasUltimoMes(); // Recalcula as vendas do ultimo mes ao atualizar o relatorio
     }
 

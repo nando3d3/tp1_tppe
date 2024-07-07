@@ -79,9 +79,9 @@ public class RelatorioVendaTest {
 
 
         return Arrays.asList(new Object[][] {
-            { clienteEspecial, criaVendasClienteEspecial(clienteEspecial), true },
-            { clienteNaoEspecial, criaVendasClienteNaoEspecial(clienteNaoEspecial), false },
-            { clientePrime, criaVendasClientePrime(clientePrime), false }
+            { clienteEspecial, criaVendasClienteEspecial(clienteEspecial), true},
+            { clienteNaoEspecial, criaVendasClienteNaoEspecial(clienteNaoEspecial), false},
+            { clientePrime, criaVendasClientePrime(clientePrime), false}
         });
     }
 
@@ -91,4 +91,19 @@ public class RelatorioVendaTest {
         Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
         System.out.println("Cliente: " + cliente.getNome() + " - Total de Vendas: " + totalVendasCliente + " - Tipo: " + cliente.getTipoCliente());
     }
+
+    @Test
+    public void testCalculaVendasUltimoMes() {
+        relatorioVenda.calculaVendasUltimoMes();
+        Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
+
+        if (valorEsperado) {
+            assertEquals(Double.valueOf(160.18), totalVendasCliente);
+        } else if (cliente.getNome().equals("Cliente Nao Especial")) {
+            assertEquals(Double.valueOf(90.6), totalVendasCliente);
+        } else if (cliente.getNome().equals("Cliente Prime")) {
+            assertEquals(Double.valueOf(92.8), totalVendasCliente);
+        }
+    }
+
 }
