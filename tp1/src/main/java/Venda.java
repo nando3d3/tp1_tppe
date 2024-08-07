@@ -93,20 +93,32 @@ public class Venda {
     }
 
     public double calculaTotalNota() {
-        double valorTotalNota;
         double totalPedido = calculaTotalPedido();
         double imposto = calculaImposto();
         double frete = valorFrete();
         double descontoPagamento = 1.0;
 
-        if (cliente.getTipoCliente().equals("prime")) {
+        if (cliente instanceof ClientePrime) {
+            ClientePrime clientePrime = (ClientePrime) cliente;
             if (metodoPagamento.equals("cartao_loja")) {
-                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.05);
+                clientePrime.setCashBack(clientePrime.getCashBack() + totalPedido * 0.05);
             } else {
-                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.03);
+                clientePrime.setCashBack(clientePrime.getCashBack() + totalPedido * 0.03);
             }
             frete = 0.0;
-        } else if (cliente.getTipoCliente().equals("especial")) {
+
+            if (usarCashback) {
+                double cashback = clientePrime.getCashBack();
+                if (cashback > totalPedido + imposto + frete) {
+                    cashback -= totalPedido + imposto + frete;
+                    totalPedido = 0.0;
+                } else {
+                    totalPedido -= cashback;
+                    cashback = 0.0;
+                }
+                clientePrime.setCashBack(cashback);
+            }
+        } else if (cliente instanceof ClienteEspecial) {
             totalPedido *= 0.90;
             if (metodoPagamento.equals("cartao_empresa")) {
                 descontoPagamento = 0.90;
@@ -114,22 +126,7 @@ public class Venda {
             frete = frete * 0.70;
         }
 
-        double valorTotal = totalPedido + imposto + frete;
-        valorTotalNota = valorTotal * descontoPagamento;
-
-        if (cliente.getTipoCliente().equals("prime") && usarCashback) {
-            double cashback = cliente.getCashBack();
-            if (cashback > valorTotalNota) {
-                cashback -= valorTotalNota;
-                valorTotalNota = 0.0;
-            } else {
-                valorTotalNota -= cashback;
-                cashback = 0.0;
-            }
-            cliente.setCashBack(cashback);
-        }
-
-        return valorTotalNota;
+        return (totalPedido + imposto + frete) * descontoPagamento;
     }
     
     public List<ItemVenda> getItens() {
@@ -154,5 +151,9 @@ public class Venda {
 
     public boolean isUsarCashBack(){
         return usarCashback;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

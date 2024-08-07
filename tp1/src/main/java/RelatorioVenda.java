@@ -32,8 +32,11 @@ public class RelatorioVenda {
         for (Venda venda : vendas) {
             Cliente cliente = venda.getCliente();
             vendaUltimoMes(venda, inicioMesAnterior, fimMesAnterior);
-            if(verificaClienteEspecial(cliente)){
-                cliente.setTipoCliente("especial");
+            if (verificaClienteEspecial(cliente)) {
+                ClienteEspecial clienteEspecial = new ClienteEspecial(cliente.getId(), cliente.getCpfCnpj(), cliente.getNome(), cliente.getEndereco());
+                vendasClientes.put(clienteEspecial, vendasClientes.get(cliente));
+            } else {
+                vendasClientes.put(cliente, vendasClientes.getOrDefault(cliente, 0.0));
             }
         }
 
@@ -72,7 +75,7 @@ public class RelatorioVenda {
     }
 
     public boolean verificaClienteEspecial(Cliente cliente) {
-        if (cliente.getTipoCliente() == "prime") return false;
+        if (cliente instanceof ClientePrime) return false;
         
         Double totalVendasCliente = vendasClientes.get(cliente);
         return totalVendasCliente != null && totalVendasCliente >= 100;
