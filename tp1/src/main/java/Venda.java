@@ -92,41 +92,10 @@ public class Venda {
         return totalImposto;
     }
 
+    // A técnica "Substituir Método por Objeto-Método" foi abordado para o mau cheiro de Método Grande e Muitas Responsabilidades, onde um único método estava realizando muitas operações complexas. Ao mover a lógica de cálculo para uma nova classe CalculadoraTotalNota, as responsabilidades foram melhor distribuídas e isoladas, tornando o código mais claro, modular e fácil de manter. Além disso, essa mudança facilita a testabilidade, permitindo testar o cálculo da nota de forma independente, e torna o código mais flexível para futuras alterações.
+
     public double calculaTotalNota() {
-        double totalPedido = calculaTotalPedido();
-        double imposto = calculaImposto();
-        double frete = valorFrete();
-        double descontoPagamento = 1.0;
-
-        if (cliente instanceof ClientePrime) {
-            ClientePrime clientePrime = (ClientePrime) cliente;
-            if (metodoPagamento.equals("cartao_loja")) {
-                clientePrime.setCashBack(clientePrime.getCashBack() + totalPedido * 0.05);
-            } else {
-                clientePrime.setCashBack(clientePrime.getCashBack() + totalPedido * 0.03);
-            }
-            frete = 0.0;
-
-            if (usarCashback) {
-                double cashback = clientePrime.getCashBack();
-                if (cashback > totalPedido + imposto + frete) {
-                    cashback -= totalPedido + imposto + frete;
-                    totalPedido = 0.0;
-                } else {
-                    totalPedido -= cashback;
-                    cashback = 0.0;
-                }
-                clientePrime.setCashBack(cashback);
-            }
-        } else if (cliente instanceof ClienteEspecial) {
-            totalPedido *= 0.90;
-            if (metodoPagamento.equals("cartao_empresa")) {
-                descontoPagamento = 0.90;
-            }
-            frete = frete * 0.70;
-        }
-
-        return (totalPedido + imposto + frete) * descontoPagamento;
+        return new CalculadoraNota(this).calcularNota();
     }
     
     public List<ItemVenda> getItens() {

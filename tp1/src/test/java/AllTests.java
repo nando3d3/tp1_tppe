@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
     ProdutoTest.class,
     ItemVendaTest.class,
     VendaTest.class,
-    RelatorioVendaTest.class
+    RelatorioVendaTest.class,
+    CalculadoraNotaTest.class
 })
 
 public class AllTests {
