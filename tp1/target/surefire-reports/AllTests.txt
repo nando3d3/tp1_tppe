@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: AllTests
 -------------------------------------------------------------------------------
-Tests run: 84, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 s - in AllTests
+Tests run: 96, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s - in AllTests

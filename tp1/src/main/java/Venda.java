@@ -92,44 +92,10 @@ public class Venda {
         return totalImposto;
     }
 
+    // A técnica "Substituir Método por Objeto-Método" foi abordado para o mau cheiro de Método Grande e Muitas Responsabilidades, onde um único método estava realizando muitas operações complexas. Ao mover a lógica de cálculo para uma nova classe CalculadoraTotalNota, as responsabilidades foram melhor distribuídas e isoladas, tornando o código mais claro, modular e fácil de manter. Além disso, essa mudança facilita a testabilidade, permitindo testar o cálculo da nota de forma independente, e torna o código mais flexível para futuras alterações.
+
     public double calculaTotalNota() {
-        double valorTotalNota;
-        double totalPedido = calculaTotalPedido();
-        double imposto = calculaImposto();
-        double frete = valorFrete();
-        double descontoPagamento = 1.0;
-
-        if (cliente.getTipoCliente().equals("prime")) {
-            if (metodoPagamento.equals("cartao_loja")) {
-                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.05);
-            } else {
-                cliente.setCashBack(cliente.getCashBack() + totalPedido * 0.03);
-            }
-            frete = 0.0;
-        } else if (cliente.getTipoCliente().equals("especial")) {
-            totalPedido *= 0.90;
-            if (metodoPagamento.equals("cartao_empresa")) {
-                descontoPagamento = 0.90;
-            }
-            frete = frete * 0.70;
-        }
-
-        double valorTotal = totalPedido + imposto + frete;
-        valorTotalNota = valorTotal * descontoPagamento;
-
-        if (cliente.getTipoCliente().equals("prime") && usarCashback) {
-            double cashback = cliente.getCashBack();
-            if (cashback > valorTotalNota) {
-                cashback -= valorTotalNota;
-                valorTotalNota = 0.0;
-            } else {
-                valorTotalNota -= cashback;
-                cashback = 0.0;
-            }
-            cliente.setCashBack(cashback);
-        }
-
-        return valorTotalNota;
+        return new CalculadoraNota(this).calcularNota();
     }
     
     public List<ItemVenda> getItens() {
@@ -154,5 +120,9 @@ public class Venda {
 
     public boolean isUsarCashBack(){
         return usarCashback;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

@@ -5,13 +5,17 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
+import java.util.Date;
 
 @RunWith(Parameterized.class)
 public class RelatorioVendaTest {
@@ -73,10 +77,9 @@ public class RelatorioVendaTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        Cliente clienteEspecial = new Cliente(1, "831.997.200-05", "Cliente Especial", new Endereco("DF", true), "padrao");
-        Cliente clienteNaoEspecial = new Cliente(2, "081.707.980-78", "Cliente Nao Especial", new Endereco("SP", true), "padrao");
-        Cliente clientePrime = new Cliente(3, "586.148.250-05", "Cliente Prime", new Endereco("GO", true), "prime");
-
+        Cliente clienteEspecial = new ClienteEspecial(1, "831.997.200-05", "Cliente Especial", new Endereco("DF", true));
+        Cliente clienteNaoEspecial = new ClientePadrao(2, "081.707.980-78", "Cliente Nao Especial", new Endereco("SP", true));
+        Cliente clientePrime = new ClientePrime(3, "586.148.250-05", "Cliente Prime", new Endereco("GO", true));
 
         return Arrays.asList(new Object[][] {
             { clienteEspecial, criaVendasClienteEspecial(clienteEspecial), true},
@@ -88,8 +91,13 @@ public class RelatorioVendaTest {
     @Test
     public void testVerificaClienteEspecial() {
         assertEquals(valorEsperado, relatorioVenda.verificaClienteEspecial(cliente));
-        Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
-        System.out.println("Cliente: " + cliente.getNome() + " - Total de Vendas: " + totalVendasCliente + " - Tipo: " + cliente.getTipoCliente());
+        //Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
+        
+        if (valorEsperado) {
+            assertTrue(cliente instanceof ClienteEspecial);
+        } else {
+            assertTrue(!(cliente instanceof ClienteEspecial));
+        }
     }
 
     @Test
@@ -104,6 +112,46 @@ public class RelatorioVendaTest {
         } else if (cliente.getNome().equals("Cliente Prime")) {
             assertEquals(Double.valueOf(92.8), totalVendasCliente);
         }
+    }
+
+    @Test
+    public void testDataUltimoMes() {
+        Date[] periodoUltimoMes = relatorioVenda.dataUltimoMes();
+        SimpleDateFormat formatoData = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar inicioEsperado = Calendar.getInstance();
+        inicioEsperado.add(Calendar.MONTH, -1);
+        inicioEsperado.set(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar fimEsperado = Calendar.getInstance();
+        fimEsperado.add(Calendar.MONTH, -1);
+        fimEsperado.set(Calendar.DAY_OF_MONTH, fimEsperado.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        assertEquals(formatoData.format(inicioEsperado.getTime()), formatoData.format(periodoUltimoMes[0]));
+        assertEquals(formatoData.format(fimEsperado.getTime()), formatoData.format(periodoUltimoMes[1]));
+
+    }
+
+    @Test
+    public void testVendaUltimoMes() {
+        Venda venda = criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(10), cliente, "cartao_empresa", false, 20.0, 2);
+        Date[] periodoUltimoMes = relatorioVenda.dataUltimoMes();
+
+        relatorioVenda.vendaUltimoMes(venda, periodoUltimoMes[0], periodoUltimoMes[1]);
+        Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
+
+        assertTrue(totalVendasCliente != null && totalVendasCliente > 40.0);
+    }
+
+    @Test
+    public void testAtualizaVendasCliente() {
+        Venda venda = criaVenda(LocalDate.now().minusMonths(1).withDayOfMonth(10), cliente, "pix", false, 20.0, 2);
+
+        relatorioVenda.atualizaVendasCliente(venda);
+        Double totalVendasCliente = relatorioVenda.getVendasClientes().get(cliente);
+
+        assertTrue(totalVendasCliente != null && totalVendasCliente > 40.0);
+
     }
 
 }
